@@ -1,10 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCapivaraDto } from './dto/create-capivara.dto';
 import { UpdateCapivaraDto } from './dto/update-capivara.dto';
+import { Repository } from 'typeorm';
+import { Capivara } from './entities/capivara.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class CapivaraService {
+  constructor(
+    @InjectRepository(Capivara)
+    private capivaraRepository: Repository<Capivara>){}
+
   create(createCapivaraDto: CreateCapivaraDto) {
+    this.capivaraRepository.create(createCapivaraDto);
     return 'This action adds a new capivara';
   }
 
