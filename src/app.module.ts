@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CapivaraModule } from './capivara/capivara.module';
+import { Capivara } from './capivara/entities/capivara.entity';
 
 @Module({
   imports: [
@@ -12,9 +14,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'root',
       password: 'mysql',
       database: 'db_capivaras',
-      entities: [],
+      entities: [Capivara],
       synchronize: true,
     }),
+    CapivaraModule,
   ],
   controllers: [AppController],
   providers: [AppService],
