@@ -3,7 +3,7 @@ import { CapivaraService } from './capivara.service';
 import { CreateCapivaraDto } from './dto/create-capivara.dto';
 import { UpdateCapivaraDto } from './dto/update-capivara.dto';
 
-@Controller('capivara')
+@Controller('capivaras')
 export class CapivaraController {
   constructor(private readonly capivaraService: CapivaraService) {}
 
