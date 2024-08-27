@@ -1,4 +1,4 @@
-  import { Injectable } from '@nestjs/common';
+  import { Injectable, NotFoundException } from '@nestjs/common';
   import { CreateCapivaraDto } from './dto/create-capivara.dto';
   import { UpdateCapivaraDto } from './dto/update-capivara.dto';
   import { Repository } from 'typeorm';
@@ -21,14 +21,23 @@
     }
 
     async findOne(id: number) {
-      return await this.capivaraRepository.findOneBy({id});
+      const capivara = await this.capivaraRepository.findOneBy({id});
+      if(capivara)
+        return capivara
+      throw new NotFoundException("Capivara não encontrada")
     }
 
     async update(id: number, updateCapivaraDto: UpdateCapivaraDto) {
-      return await this.capivaraRepository.update(id, updateCapivaraDto);
+      const capivara = await this.capivaraRepository.findOneBy({id});
+      if(capivara)
+        return await this.capivaraRepository.update(id, updateCapivaraDto);
+      throw new NotFoundException("Capivara não encontrada")
     }
 
     async remove(id: number) {
-      return await this.capivaraRepository.delete(id);
+      const capivara = await this.capivaraRepository.findOneBy({id});
+      if(capivara)
+        return await this.capivaraRepository.delete(id);
+      throw new NotFoundException("Capivara não encontrada")
     }
   }
