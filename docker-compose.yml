@@ -1,0 +1,40 @@
+services:
+  
+  mysql:
+    image: mysql:latest
+    container_name: capivaras-db
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: db_capivaras
+    ports:
+      - "3307:3306"
+      - "33070:33060"
+    volumes:
+      - bancomysql:/var/lib/mysql
+    networks:
+      - my-network
+  
+  app:
+    container_name: capivaras-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_HOST=mysql
+      - DATABASE_PORT=3306
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=mysql
+      - DATABASE_NAME=db_capivaras
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  bancomysql:

@@ -6,12 +6,12 @@ export class CreateCapivaraDto {
     @IsString()
     name: string;
     
-    @IsOptional()
     @IsNumber()
+    @IsOptional()
     age?: number;
 
-    @IsOptional()
     @IsString()
+    @IsOptional()
     health_status?: string;
 
     @IsOptional()
